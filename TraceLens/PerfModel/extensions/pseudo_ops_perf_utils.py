@@ -10,6 +10,7 @@ Utils. for perf. model pseudo-op extensions.
 
 from . import (
     moe_perf_model_extensions,
+    moe_aux_perf_model_extensions,
     attention_perf_model_extensions,
     perf_model_extensions,
     rmsnorm_perf_model_extensions,
@@ -81,6 +82,10 @@ def get_pseudo_op_mappings():
         "aiter::gelu_tanh_and_mul": perf_model_extensions.aiter_gelu_tanh_and_mul,
         ## MoE ops
         ##"aiter::moe_sorting_fwd": perf_model_extensions.aiter_moe_sorting_fwd,
+        "aiter::moe_sorting_fwd": moe_aux_perf_model_extensions.aiter_moe_sorting_kernel,
+        "aiter::moe_sorting_opus_fwd": moe_aux_perf_model_extensions.aiter_moe_sorting_kernel,
+        "aiter::grouped_topk": moe_aux_perf_model_extensions.aiter_grouped_topk_kernel,
+        "aiter::biased_grouped_topk_hip": moe_aux_perf_model_extensions.aiter_grouped_topk_kernel,
         ## RMSNorm ops
         "aiter::rms_norm": rmsnorm_perf_model_extensions.aiter_rms_norm,
         "aiter::rmsnorm": rmsnorm_perf_model_extensions.aiter_rmsnorm,
